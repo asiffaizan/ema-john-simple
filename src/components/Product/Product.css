@@ -1,0 +1,29 @@
+.product {
+    display: flex;
+    border-bottom: 1px solid lightgray;
+    padding: 20px 5px;
+}
+
+.product-info h3 {
+    color: blue;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.product-container {
+    width: 70%;
+    margin: 0 5px 0 20 px;
+    border-right: 1px solid lightgray;
+}
+
+.product-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: goldenrod;
+    border: 1px solid gray;
+    border-radius: 5px;
+    width: 230px;
+    height: 30px;
+    cursor: pointer;
+}

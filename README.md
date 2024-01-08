@@ -1,70 +1,46 @@
-# Getting Started with Create React App
+# ema-john-simple-resources
+### Fake Products link: [https://raw.githubusercontent.com/ProgrammingHero1/ema-john-simple-resources/master/fakeData/products.JSON](https://raw.githubusercontent.com/ProgrammingHero1/ema-john-simple-resources/master/fakeData/products.JSON)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# fake store api
+https://fakestoreapi.com/products
 
-In the project directory, you can run:
+'https://raw.githubusercontent.com/ProgrammingHero1/ema-john-simple-resources/master/fakeData/products.JSON'
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+#Notes 
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+#Cart.js
 
-### `npm test`
+    cart.reduce((total,product) => total + product.price,0);
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    or
 
-### `npm run build`
+    let total = 0;
+    for(let i=0; i<cart.length; i++) {
+        const product = cart[i];
+        total = total + product.price;
+    }
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+=> here cart is capturing the data from Shop.js
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+=> cart.reduce((total,product) =>  total + product.price,0); here product is capturing the click event and data from Product.js and cart is capturing the previous data from useState([]); total is the previous value of total and product.price is the current value of total and 0 is the initial value of total;
 
-### `npm run eject`
+=> here reduce() is a function which is used to iterate the array and it takes two parameters: 1st is a function and 2nd is the initial value of the function.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+#Product.js
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+=> 1: if I want to pass any parameters through the function then I have to use arrow function otherwise it will call the function automatically
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+=> 2: here handleAddToCard is a function which is passed from Shop.js
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+=> 3: here props.product is sending products to Shop.js. If its don't need to pass any parameters then I can use like this: onClick={props.handleAddToCard}
 
-## Learn More
+#Shope.js
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+=> here element is capturing the click event and data  from Product.js
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+=> const newCart = [...cart, element]; here element is capturing the click event and data  from Product.js and cart is capturing the previous data from useState([])
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
