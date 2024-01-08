@@ -10,6 +10,7 @@ const Shop = () => {
         fetch(fakeData)
         .then(res => res.json())
         .then(data =>setProducts(data))
+        .catch(error => console.log(error))
     
     },[])
     const items = products.slice(0,10);

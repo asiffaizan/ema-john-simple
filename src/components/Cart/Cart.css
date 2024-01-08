@@ -1,0 +1,11 @@
+.cart-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: goldenrod;
+    border: 1px solid gray;
+    border-radius: 5px;
+    width: 230px;
+    height: 30px;
+    cursor: pointer;
+}

@@ -1,4 +1,5 @@
 import React from 'react';
+import './Cart.css';
 
 
 const formateNumber = num => {
@@ -39,6 +40,7 @@ const Cart = (props) => {
             <h5>Shipping: {shipping} </h5>
             <p><small>Tax + Vat : {tax} </small></p>
             <h5>Grand Price: {grandTotal} </h5>
+            <button className='cart-btn'>Review Your Order</button>
         </div>
     );
 };
