@@ -15,6 +15,7 @@ const Shop = () => {
     },[])
     const items = products.slice(0,10);
 
+    //adding items to cart
     const [cart, setCart] = useState([]);
 
 
@@ -22,7 +23,6 @@ const Shop = () => {
     
 
     const handleAddToCard = (element) => {
-        // console.log('Product Added',element);
         const newCart = [...cart, element];
         setCart(newCart);
         console.log(newCart);
