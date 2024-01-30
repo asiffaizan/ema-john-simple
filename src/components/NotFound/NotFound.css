@@ -1,0 +1,9 @@
+#not-found {
+    text-align: center;
+    margin-top: 10%;
+    font-weight: 900;
+}
+
+#not-found h6 {
+    color: red;
+}

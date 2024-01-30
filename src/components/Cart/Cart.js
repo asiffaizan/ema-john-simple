@@ -43,11 +43,10 @@ const Cart = (props) => {
             <h5>Shipping: {shipping} </h5>
             <p><small>Tax + Vat : {tax} </small></p>
             <h5>Grand Price: {grandTotal} </h5>
-            {/* <button className='cart-btn'>Review Your Order</button>
-            <Review cart={cart}></Review> */}
-            <Popup trigger={<button className='cart-btn'>Review Your Order</button>} position="right center">
+            <button className='cart-btn'>Review Your Order</button>
+            {/* <Popup trigger={<button className='cart-btn'>Review Your Order</button>} position="right center">
                 <Review cart={cart}></Review>
-            </Popup>
+            </Popup> */}
         </div>
     );
 };
