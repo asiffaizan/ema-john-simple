@@ -1,8 +1,6 @@
 import React from 'react';
 import './Cart.css';
-import Popup from 'reactjs-popup';
-import 'reactjs-popup/dist/index.css';
-import Review from '../Review/Review';
+import { Link } from 'react-router-dom';
 
 
 const formateNumber = num => {
@@ -43,10 +41,9 @@ const Cart = (props) => {
             <h5>Shipping: {shipping} </h5>
             <p><small>Tax + Vat : {tax} </small></p>
             <h5>Grand Price: {grandTotal} </h5>
-            <button className='cart-btn'>Review Your Order</button>
-            {/* <Popup trigger={<button className='cart-btn'>Review Your Order</button>} position="right center">
-                <Review cart={cart}></Review>
-            </Popup> */}
+            <Link to="/review">
+                <button className='cart-btn'>Review Your Order</button>
+            </Link>
         </div>
     );
 };

@@ -1,3 +1,7 @@
+ *{ 
+    text-decoration: none;
+}
+
 .cart {
     position: fixed;
     border: 2px solid #62626433;
