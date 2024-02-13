@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Review.css';
 import { getStoredCart } from '../../utilities/fakedb';
-import Product from '../Product/Product';
+import ReviewItem from '../ReviewItem/ReviewItem';
 
 const Review = () => {
     const [cart, setCart] = useState([]);
@@ -30,21 +30,18 @@ const Review = () => {
         product.quantity = savedCart[product.key];
     })
 
-    console.log("==>productKeys",productKeys," =>product", cartProduct);
+    // console.log("==>productKeys",productKeys," =>product", cartProduct);
 
     return (
         <div className='popup-item'>
-            <h2>Order Summary</h2>
+            {cartProduct.length > 0 && <h2>Cart Item: {cartProduct.length}</h2>}
             {loading ? (
                 <p>Loading ...</p>
             ) : (
                 cartProduct.length > 0 ? (
                     <div>
                         {cartProduct.map(product => (
-                            <>
-                                <p>Quantity: {product.quantity}</p>
-                                <Product showAddToCard={false} product={product} />
-                            </>
+                            <ReviewItem key={product.key} product={product} />
                         ))}
                     </div>
                 ) : (
@@ -58,22 +55,8 @@ const Review = () => {
 export default Review;
 
 /*
+##############################################
 Hare count and countdown are different way to get the same output.
     const count = Object.values(savedCart);
     const countdown = productKeys.map(key => savedCart[key]);
-
-##############################################
-{
-    const product = fakeData.find(pd => pd.key === key);
-    product.quantity = savedCart[key];
-    return product;
-}
-
-
-const cartProduct = productKeys.map(key =>{
-            const product = fakeData.find( pd => pd.key === key);
-            product.quantity = savedCart[key];
-            return product;
-        });
-
 */

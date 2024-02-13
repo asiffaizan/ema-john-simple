@@ -1,16 +1,4 @@
-.popup-content {
-    position: fixed !important;;
-    top: 20% !important;
-    left: 2% !important;
-    min-width: 65%;
-    height: 75%;
-}
-.popup-arrow {
-    display: none;
-
-}
-.popup-item li {
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 1rem;
+.popup-item {
+    padding: 10px;
+    margin: 10px;
 }

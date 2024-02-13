@@ -19,7 +19,7 @@ const Product = (props) => {
         <p> <small>only {stock} left in stock - order soon</small> </p>
         {props.showAddToCard && (
           <button
-            className="product-btn"
+            className="primary-btn"
             onClick={()=> props.handleAddToCard(props.product)}
             //Note-1-3(Readme.md)
           >
