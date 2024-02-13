@@ -1,14 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import './Review.css';
-import { getStoredCart } from '../../utilities/fakedb';
+import { deleteFromDb, getStoredCart } from '../../utilities/fakedb';
 import ReviewItem from '../ReviewItem/ReviewItem';
 
 const Review = () => {
     const [cart, setCart] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    
+    // get data from local storage
     const savedCart = getStoredCart();
     const productKeys = Object.keys(savedCart);
+
+    // handle removing the product
+    const removeProduct = (productKey) => {
+        const newCart = cart.filter(product => product.key !== productKey);
+        setCart(newCart);
+        deleteFromDb(productKey);
+    }
 
     useEffect(()=>{        
         async function fetchData() {
@@ -30,8 +39,6 @@ const Review = () => {
         product.quantity = savedCart[product.key];
     })
 
-    // console.log("==>productKeys",productKeys," =>product", cartProduct);
-
     return (
         <div className='popup-item'>
             {cartProduct.length > 0 && <h2>Cart Item: {cartProduct.length}</h2>}
@@ -41,7 +48,10 @@ const Review = () => {
                 cartProduct.length > 0 ? (
                     <div>
                         {cartProduct.map(product => (
-                            <ReviewItem key={product.key} product={product} />
+                            <ReviewItem 
+                                key={product.key} 
+                                removeProduct = {removeProduct}
+                                product={product} />
                         ))}
                     </div>
                 ) : (
@@ -54,9 +64,4 @@ const Review = () => {
 
 export default Review;
 
-/*
-##############################################
-Hare count and countdown are different way to get the same output.
-    const count = Object.values(savedCart);
-    const countdown = productKeys.map(key => savedCart[key]);
-*/
+// some notes are written in README.md file. They are not included here. If you want to see them, please go to README.md file. Thank you.

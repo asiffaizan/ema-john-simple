@@ -44,3 +44,34 @@ https://fakestoreapi.com/products
 => const newCart = [...cart, element]; here element is capturing the click event and data  from Product.js and cart is capturing the previous data from useState([])
 
 
+
+#NOTES:
+/*
+=> Review.js
+##############################################
+Hare are different way to get the same output.
+    const count = Object.values(savedCart);
+    #=>Method 2
+    const count = productKeys.map(key => savedCart[key]);
+
+
+    // handle removing the product
+    const handleRemoveProduct = (key) => {
+        const newCart = cart.filter(product => product.key !== key);
+        setCart(newCart);
+        delete savedCart[key];
+        localStorage.setItem('shopping_cart', JSON.stringify(savedCart)); // it will delete items manually
+    } 
+    #=>Method 2
+    const removeProduct = (productKey) => {
+        const newCart = cart.filter(product => product.key !== productKey);
+        setCart(newCart);
+        deleteFromDb(productKey); //this is come from the fakedb.js file
+    }
+
+
+=> 
+##############################################
+*/
+
+
