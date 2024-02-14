@@ -2,15 +2,28 @@ import React from 'react';
 import './ReviewItem.css';
 
 const ReviewItem = ({product,removeProduct}) => {
-    const {name, quantity, key} = product
+    // console.log(product);
+    const {name, quantity, img, key} = product
     return (
         <div className='review-item'>
-            <h3 className='product-info'>{name}</h3>
-            <h5>Quantity: {quantity}</h5>
-            <button 
-                className='primary-btn'
-                onClick={()=>removeProduct(key)}
-            >Remove</button>
+            <div className="image">
+                <img src={img} alt={key} />
+            </div>
+            <div className='review-info'>
+                <div>
+                    <h3>{name}</h3>
+                    <h5>
+                        <span>Quantity: {quantity}</span>
+                        <span>Price: </span>
+                    </h5>
+                </div>
+                <div className="review-btn">
+                    <button 
+                        className='primary-btn'
+                        onClick={()=>removeProduct(key)}
+                    >Remove</button>
+                </div>
+            </div>
         </div>
     );
 };

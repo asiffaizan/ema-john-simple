@@ -1,4 +1,12 @@
-.popup-item {
+.order-review {
+    display: flex;
     padding: 10px;
     margin: 10px;
+    max-width: 100%;
+}
+.order-item {
+    max-width: 70%;
+}
+.order-summary {
+    margin-top: 6vw;
 }

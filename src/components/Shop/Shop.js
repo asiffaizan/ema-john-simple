@@ -42,7 +42,7 @@ const Shop = () => {
             {loading ? (
                 <p className='Loading'>Loading.....</p>
             ) : (
-                <div className='shop-container'>
+                <div className='twin-container'>
                     <div className="product-container">
                         {
                             items.map(item => {
@@ -60,7 +60,10 @@ const Shop = () => {
                         }
                     </div>
                     <div className="shopping-card">
-                        <Cart cart={cart}></Cart>
+                        <Cart 
+                            cart={cart}
+                            btnText='Review Your Order'
+                        />
                     </div>
                     
                 </div>
