@@ -1,6 +1,5 @@
 import React from 'react';
 import './Cart.css';
-import { Link } from 'react-router-dom';
 
 
 const formateNumber = num => {
@@ -11,7 +10,7 @@ const formateNumber = num => {
 const Cart = (props) => {
 
     const cart = props.cart;
-    const total = cart.reduce((total,product) => total + product.price,0);
+    const total = cart.reduce((total,product) => total + (product.quantity ? product.price * product.quantity : product.price),0);
     const productTotal = formateNumber(total);
     const tax = formateNumber(productTotal/10);
 
@@ -41,9 +40,7 @@ const Cart = (props) => {
             <h5>Shipping: {shipping} </h5>
             <p><small>Tax + Vat : {tax} </small></p>
             <h5>Grand Price: {grandTotal} </h5>
-            <Link to="/review">
-                <button className='cart-btn'>{props.btnText}</button>
-            </Link>
+            {props.children}
         </div>
     );
 };

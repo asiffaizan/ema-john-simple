@@ -3,6 +3,7 @@ import './Review.css';
 import { deleteFromDb, getStoredCart } from '../../utilities/fakedb';
 import ReviewItem from '../ReviewItem/ReviewItem';
 import Cart from '../Cart/Cart';
+import { Link } from 'react-router-dom';
 
 const Review = () => {
     const [cart, setCart] = useState([]);
@@ -42,13 +43,13 @@ const Review = () => {
 
     return (
         <div className='order-review'>
-            <div className="order-item">
-                {cartProduct.length > 0 && <h2>Cart Item: {cartProduct.length}</h2>}
-                {loading ? (
-                    <p>Loading ...</p>
-                ) : (
-                    cartProduct.length > 0 ? (
-                        <div>
+            {loading ? (
+                <p>Loading ...</p>
+            ) : (
+                cartProduct.length > 0 ? (
+                    <>
+                        <div className="order-item">
+                            {cartProduct.length > 0 && <h2>Cart Item: {cartProduct.length}</h2>}
                             {cartProduct.map(product => (
                                 <ReviewItem 
                                     key={product.key} 
@@ -57,18 +58,16 @@ const Review = () => {
                                 />
                             ))}
                         </div>
-                    ) : (
-                        <p>Please Add Product To Card</p>
-                    )
-                )}
-            </div>
-            <div className="order-summary">
-                <Cart 
-                cart={cart}
-                btnText="Create Order"
-                 />
-            </div>
-            
+                        <div className="order-summary">
+                            <Cart cart={cartProduct}>
+                                <button className='cart-btn'>Place Order</button>
+                            </Cart>
+                        </div>
+                    </>
+                ) : (
+                    <p className='product-request'>Please Add Product to Cart 🛒</p>
+                )
+            )}
         </div>
     );
 };
@@ -76,15 +75,3 @@ const Review = () => {
 export default Review;
 
 // some notes are written in README.md file. They are not included here. If you want to see them, please go to README.md file. Thank you.
-
-/*
-<div className="order-summary">
-    <h2>Order Summary</h2>
-    <h3>Items Ordered: {cartProduct.length}</h3>
-    <h4>Shipping & Handling: $0</h4>
-    <h4>Total Before Tax: $0</h4>
-    <h4>Estimated Tax: $0</h4>
-    <h2>Order Total: $0</h2>
-    <button className='primary-btn'>Review Your Order</button>
-</div>
-*/

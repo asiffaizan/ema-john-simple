@@ -1,57 +1,37 @@
-import React, { useEffect, useState } from 'react';
-import './Review.css';
-import { getStoredCart } from '../../utilities/fakedb';
+import React from 'react';
+import './Cart.css';
+import { Link } from 'react-router-dom';
 
-const Review = () => {
-    const [cart, setCart] = useState([]);
-    const [loading, setLoading] = useState(true);
+const formatNumber = num => Number(num.toFixed(2));
 
-    const savedCart = getStoredCart();
-    const productKeys = Object.keys(savedCart);
+const Cart = ({ cart, btnText }) => {
+    const total = cart.reduce((acc, product) => acc + (product.quantity ? product.price * product.quantity : product.price), 0);
+    const productTotal = formatNumber(total);
+    const tax = formatNumber(productTotal / 10);
+    let shipping = 0;
+    
+    if (total > 100) shipping = 0;
+    else if (total > 35) shipping = 4.99;
+    else if (total > 15) shipping = 10.99;
+    else if (total > 0) shipping = 12.99;
 
-    useEffect(() => {
-        async function fetchData() {
-            try {
-                const res = await fetch('https://raw.githubusercontent.com/ProgrammingHero1/ema-john-simple-resources/master/fakeData/products.JSON');
-                const data = await res.json();
-                setCart(data);
-                setLoading(false);
-            } catch (error) {
-                console.error('Failed to fetch data:', error);
-                setLoading(false);
-            }
-        }
-        fetchData();
-    }, []);
-
-    // Filter the products that are in the cart
-    const cartProducts = cart.filter(product => productKeys.includes(product.key));
-
-    // Assign quantity to each product in the cartProducts array
-    cartProducts.forEach(product => {
-        product.quantity = savedCart[product.key];
-    });
-
-    console.log("cartProducts", cartProducts);
+    const grandTotal = formatNumber(total + shipping + tax);
 
     return (
-        <div className='popup-item'>
-            <h2>Order Summary</h2>
-            {loading ? (
-                <p>Loading ...</p>
-            ) : (
-                cartProducts.length > 0 ? (
-                    <ul>
-                        {cartProducts.map(product => (
-                            <li key={product.key}>{product.name} - Quantity: {product.quantity} - ${product.price}</li>
-                        ))}
-                    </ul>
-                ) : (
-                    <p>Please Add Products To Cart</p>
-                )
-            )}
+        <div className='cart'>
+            <h1>Order Summary</h1>
+            <p>Items Ordered: {cart.length}</p>
+            <h5>Product Price: {productTotal}</h5>
+            <h5>Shipping: {shipping}</h5>
+            <p><small>Tax + Vat: {tax}</small></p>
+            <h5>Grand Price: {grandTotal}</h5>
+            <Link to="/review">
+                <button className='cart-btn'>{btnText}</button>
+            </Link>
         </div>
     );
 };
 
-export default Review;
+export default Cart;
+
+

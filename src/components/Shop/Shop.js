@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import fakeData from '../../fakeData/products.JSON';
 import './Shop.css';
 import Product from '../Product/Product';
 import Cart from '../Cart/Cart';
-import { addToDb } from '../../utilities/fakedb';
+import { addToDb, getStoredCart } from '../../utilities/fakedb';
+import { Link } from 'react-router-dom';
 
 const Shop = () => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
+
+    const items = products.slice(0,10);
+
+    //adding items to cart
+    const [cart, setCart] = useState([]);
+
+
     useEffect(()=>{
         async function fetchData() {
             try {
@@ -23,20 +30,47 @@ const Shop = () => {
         fetchData();
     
     },[])
-    const items = products.slice(0,10);
-
-    //adding items to cart
-    const [cart, setCart] = useState([]);
-
-
-
-    
-
-    const handleAddToCard = (element) => {
-        const newCart = [...cart, element];
+  
+    //add to cart
+    const handleAddToCard = (product) => {
+        const toBeAddedKey = product.key;
+        const sameProduct = cart.find(p => p.key === toBeAddedKey);
+        let count = 1 ;
+        let newCart;
+        if(sameProduct) {
+            count = sameProduct.quantity + 1;
+            sameProduct.quantity = count;
+            const others = cart.filter(pd => pd.key !== toBeAddedKey);
+            newCart = [...others, sameProduct];
+        }
+        else {
+            product.quantity = 1;
+            newCart = [...cart, product];
+        }
         setCart(newCart);
-        addToDb(element.key);
+        addToDb(product.key, count);
     }
+
+    //set carts data from localhost
+    useEffect(()=>{
+        const savedCart = getStoredCart();
+        const storedCart = [];
+        if(products.length){
+            for(const key in savedCart){
+                const addedProduct = products.find(product => product.key === key);
+                if(addedProduct){
+                    const quantity = savedCart[key];
+                    addedProduct.quantity = quantity;
+                    storedCart.push(addedProduct);
+                }
+            }
+            setCart(storedCart);
+        }
+    },[products])
+
+
+
+
     return (
         <>
             {loading ? (
@@ -60,10 +94,11 @@ const Shop = () => {
                         }
                     </div>
                     <div className="shopping-card">
-                        <Cart 
-                            cart={cart}
-                            btnText='Review Your Order'
-                        />
+                        <Cart cart={cart}>
+                            <Link to="/review">
+                                <button className='cart-btn'>Review Your Order</button>
+                            </Link>
+                        </Cart>
                     </div>
                     
                 </div>
@@ -73,3 +108,22 @@ const Shop = () => {
 };
 
 export default Shop;
+
+/*
+useEffect(()=>{
+        const savedCart = getStoredCart();
+        const storedCart = [];
+        if(products.length){
+            for(const key in savedCart){
+                const addedProduct = products.find(product => product.key === key);
+                if(addedProduct){
+                    const quantity = savedCart[key];
+                    addedProduct.quantity = quantity;
+                    storedCart.push(addedProduct);
+                }
+            }
+            setCart(storedCart);
+        }
+    },[products])
+
+*/

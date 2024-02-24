@@ -3,7 +3,7 @@ import './ReviewItem.css';
 
 const ReviewItem = ({product,removeProduct}) => {
     // console.log(product);
-    const {name, quantity, img, key} = product
+    const {name, quantity, img, price, key} = product
     return (
         <div className='review-item'>
             <div className="image">
@@ -13,8 +13,8 @@ const ReviewItem = ({product,removeProduct}) => {
                 <div>
                     <h3>{name}</h3>
                     <h5>
-                        <span>Quantity: {quantity}</span>
-                        <span>Price: </span>
+                        <span>Quantity: {quantity} &#160;</span>
+                        <span>&nbsp; Price: ${price}</span>
                     </h5>
                 </div>
                 <div className="review-btn">
