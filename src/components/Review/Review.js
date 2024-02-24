@@ -21,6 +21,8 @@ const Review = () => {
         deleteFromDb(productKey);
     }
 
+    // handle place order
+
     useEffect(()=>{        
         async function fetchData() {
             try {
