@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Review.css';
-import { deleteFromDb, getStoredCart } from '../../utilities/fakedb';
+import { clearTheCart, deleteFromDb, getStoredCart } from '../../utilities/fakedb';
 import ReviewItem from '../ReviewItem/ReviewItem';
 import Cart from '../Cart/Cart';
 import { Link } from 'react-router-dom';
@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 const Review = () => {
     const [cart, setCart] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [orderPlaced, setOrderPlaced] = useState(false);
 
     
     // get data from local storage
@@ -19,6 +20,13 @@ const Review = () => {
         const newCart = cart.filter(product => product.key !== productKey);
         setCart(newCart);
         deleteFromDb(productKey);
+    }
+
+    // handle place order
+    const handlePlaceOrder = () => {
+        setCart([]);
+        setOrderPlaced(true);
+        clearTheCart();
     }
 
     // handle place order
@@ -62,12 +70,31 @@ const Review = () => {
                         </div>
                         <div className="order-summary">
                             <Cart cart={cartProduct}>
-                                <button className='cart-btn'>Place Order</button>
+                                <button
+                                 className='cart-btn'
+                                 onClick={handlePlaceOrder}
+                                >Place Order</button>
                             </Cart>
                         </div>
                     </>
                 ) : (
-                    <p className='product-request'>Please Add Product to Cart 🛒</p>
+                    <div className='product-request'>
+                        {orderPlaced ? (
+                            <div>
+                                <p>Thank You for Your Order 🤝</p>
+                                <Link to='/shop'>
+                                    <button className='cart-btn'>Shop More </button>
+                                </Link>
+                            </div>
+                        ) : (
+                            <div>
+                                <p>Your Cart is Empty 🛒</p>
+                                <Link to='/shop'>
+                                    <button className='cart-btn'>Shop Now </button>
+                                </Link>
+                            </div>
+                        )}                        
+                    </div>
                 )
             )}
         </div>

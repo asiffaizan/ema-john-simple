@@ -10,11 +10,17 @@
 .order-summary {
     margin-top: 6vw;
 }
-.order-review p.product-request{
+.order-review .product-request{
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     font-weight: 600;
     font-size: large;
+    text-align: center;
+}
+
+.order-review .product-request .cart-btn{
+    width: 50%;
+    margin: 0 auto;
 }
